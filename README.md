@@ -6,6 +6,19 @@
 
 <br />
 
+## 项目结构
+```js
++-- deploy          // 部署脚本
++-- contracts       // 合约
+|   +-- prize-pool  // 奖励池
+|   +-- utils       // 工具类
++-- deployments // 部署到不同链需要的json
++-- js        // TODO
++-- scripts   // TODO
++-- test      // 测试
+contracts     // 合约
+```
+
 ## PoolTogether Prize Savings Protocol
 
 [![<PoolTogether>](https://circleci.com/gh/pooltogether/pooltogether-pool-contracts.svg?style=shield)](https://circleci.com/gh/pooltogether/pooltogether-pool-contracts) [![Coverage Status](https://coveralls.io/repos/github/pooltogether/pooltogether-pool-contracts/badge.svg?branch=master)](https://coveralls.io/github/pooltogether/pooltogether-pool-contracts?branch=master) [![built-with openzeppelin](https://img.shields.io/badge/built%20with-OpenZeppelin-3677FF)](https://docs.openzeppelin.com/)
