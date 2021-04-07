@@ -10,13 +10,21 @@
 ```js
 +-- deploy          // 部署脚本
 +-- contracts       // 合约
+|   +-- builders    // 新建奖池
+|   +-- comptroller // 
+|   +-- drip        // 奖励（POOL）管理，设置速率和是否 active
+|   +-- external    // 外部合约的接口定义
+|   +-- permit      // 钱包授权并申购
 |   +-- prize-pool  // 奖励池
+|   +-- prize-strategy  // 奖励策略（获奖人数，管理外部奖励）
+|   +-- registry    // TODO
+|   +-- token       // TODO
+|   +-- token-faucet    // 给用户发放奖励（POOL）水滴
 |   +-- utils       // 工具类
 +-- deployments // 部署到不同链需要的json
 +-- js        // TODO
 +-- scripts   // TODO
 +-- test      // 测试
-contracts     // 合约
 ```
 
 ## PoolTogether Prize Savings Protocol
