@@ -15,7 +15,7 @@
 |   +-- drip        // 奖励（POOL）管理，设置速率和是否 active
 |   +-- external    // 外部合约的接口定义
 |   +-- permit      // Dai 币的一键授权+申购
-|   +-- prize-pool  // 奖励池，申购和提取功能
+|   +-- prize-pool  // 奖励池，申购和提取功能 PrizePool.depositTo
 |   +-- prize-strategy  // 奖励策略（获奖人数，管理外部奖励）
 |   +-- registry    // TODO
 |   +-- token       // 存放申购后获得的 Ticket

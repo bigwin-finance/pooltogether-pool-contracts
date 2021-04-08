@@ -287,7 +287,7 @@ abstract contract PrizePool is PrizePoolInterface, OwnableUpgradeable, Reentranc
   /// @notice Deposit assets into the Prize Pool in exchange for tokens
   /// @param to The address receiving the newly minted tokens
   /// @param amount The amount of assets to deposit
-  /// @param controlledToken The address of the type of token the user is minting
+  /// @param controlledToken The address of the type of token(池子的token) the user is minting（用户想存的)  // Pool 对应的 token，通过 token 选择存入哪个池子
   /// @param referrer The referrer of the deposit
   function depositTo(
     address to,
@@ -302,9 +302,14 @@ abstract contract PrizePool is PrizePoolInterface, OwnableUpgradeable, Reentranc
   {
     address operator = _msgSender();
 
+    // 实际是 controlledToken.mint, 铸币到用户钱包上
     _mint(to, amount, controlledToken, referrer);
-
-    _token().safeTransferFrom(operator, address(this), amount);
+    // safeTransferFrom 把用户的钱转到当前合约上, 手续费由 sender 出，return boolean
+    // TODO 为什么要调用方是 第三方的 cToken 来做？
+    _token()/**返回 Compound Token**/.safeTransferFrom(operator/**sender**/, address(this)/**recipient**/, amount);
+    // 里面的操作： 把币授权并交给第三方托管
+    // cToken.safeApprove(address(cToken), amount);
+    // cToken.mint(amount);
     _supply(amount);
 
     emit Deposited(operator, to, controlledToken, amount, referrer);
@@ -1044,7 +1049,7 @@ abstract contract PrizePool is PrizePoolInterface, OwnableUpgradeable, Reentranc
 
   /// @notice Delegate the votes for a Compound COMP-like token held by the prize pool
   /// @param compLike The COMP-like token held by the prize pool that should be delegated
-  /// @param to The address to delegate to 
+  /// @param to The address to delegate to
   function compLikeDelegate(ICompLike compLike, address to) external onlyOwner {
     if (compLike.balanceOf(address(this)) > 0) {
       compLike.delegate(to);

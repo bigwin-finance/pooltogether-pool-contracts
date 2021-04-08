@@ -9,6 +9,7 @@ import "../external/maker/DaiInterface.sol";
 import "../prize-pool/PrizePoolInterface.sol";
 
 /// @title Allows users to approve and deposit dai into a prize pool in a single transaction.
+/// @title 一键购买 dai （approve + deposit）.
 contract PermitAndDepositDai is OwnableUpgradeable {
   using SafeERC20Upgradeable for DaiInterface;
 

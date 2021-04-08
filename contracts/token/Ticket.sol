@@ -8,6 +8,7 @@ import "@pooltogether/uniform-random-number/contracts/UniformRandomNumber.sol";
 import "./ControlledToken.sol";
 import "./TicketInterface.sol";
 
+/// @title 用户申购后就会获得 Ticket
 contract Ticket is ControlledToken, TicketInterface {
   using SortitionSumTreeFactory for SortitionSumTreeFactory.SortitionSumTrees;
 
@@ -15,6 +16,7 @@ contract Ticket is ControlledToken, TicketInterface {
   uint256 constant private MAX_TREE_LEAVES = 5;
 
   // Ticket-weighted odds
+  // 存储用户持有 token 的权重
   SortitionSumTreeFactory.SortitionSumTrees internal sortitionSumTrees;
 
   /// @notice Initializes the Controlled Token with Token Details and the Controller
@@ -37,11 +39,13 @@ contract Ticket is ControlledToken, TicketInterface {
     sortitionSumTrees.createTree(TREE_KEY, MAX_TREE_LEAVES);
   }
 
+  /// @comment 返回用户的中奖概率
   /// @notice Returns the user's chance of winning.
   function chanceOf(address user) external view returns (uint256) {
     return sortitionSumTrees.stakeOf(TREE_KEY, bytes32(uint256(user)));
   }
 
+  /// @comment 传入一个随机数，返回中奖用户的 address
   /// @notice Selects a user using a random number.  The random number will be uniformly bounded to the ticket totalSupply.
   /// @param randomNumber The random number to use to select a user.
   /// @return The winner
@@ -51,12 +55,15 @@ contract Ticket is ControlledToken, TicketInterface {
     if (bound == 0) {
       selected = address(0);
     } else {
+      // 随机数
       uint256 token = UniformRandomNumber.uniform(randomNumber, bound);
+      // 根据随机数拿到用户
       selected = address(uint256(sortitionSumTrees.draw(TREE_KEY, token)));
     }
     return selected;
   }
 
+  /// @comment token transfers controller 之前，会触发该方法，用户更新用户的持有 token 情况
   /// @dev Controller hook to provide notifications & rule validations on token transfers to the controller.
   /// This includes minting and burning.
   /// May be overridden to provide more granular control over operator-burning
