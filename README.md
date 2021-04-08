@@ -11,14 +11,14 @@
 +-- deploy          // 部署脚本
 +-- contracts       // 合约
 |   +-- builders    // 新建奖池
-|   +-- comptroller // 
+|   +-- comptroller // TODO
 |   +-- drip        // 奖励（POOL）管理，设置速率和是否 active
 |   +-- external    // 外部合约的接口定义
-|   +-- permit      // 钱包授权并申购
-|   +-- prize-pool  // 奖励池
+|   +-- permit      // Dai 币的一键授权+申购
+|   +-- prize-pool  // 奖励池，申购和提取功能
 |   +-- prize-strategy  // 奖励策略（获奖人数，管理外部奖励）
 |   +-- registry    // TODO
-|   +-- token       // TODO
+|   +-- token       // 存放申购后获得的 Ticket
 |   +-- token-faucet    // 给用户发放奖励（POOL）水滴
 |   +-- utils       // 工具类
 +-- deployments // 部署到不同链需要的json
